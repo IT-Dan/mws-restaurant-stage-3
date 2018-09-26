@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Normalize.css for better cross-browser consistency -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#317EFB"/>
+  <link rel="stylesheet" src="//raw.githubusercontent.com/necolas/normalize.css/master/normalize.css" />
+  <!-- Main CSS file -->
+  <link rel="stylesheet" href="css/styles.css" type="text/css">
+  <link rel="manifest" href="manifest.json">  
+  <title>Restaurant Info</title>
+</head>
+
+<body class="inside">
+  <!-- Beginning header -->
+  <header>
+    <!-- Beginning nav -->
+    <nav role="navigation">
+      <h1><a href="/">Restaurant Reviews</a></h1>
+      <!-- Beginning breadcrumb -->
+      <ul id="breadcrumb" aria-label="Breadcrumb">
+        <li><a href="/">Home</a></li>
+      </ul>
+      <!-- End breadcrumb -->      
+    </nav>
+    <!-- End nav -->
+  </header>
+  <!-- End header -->
+
+  <!-- Beginning main -->
+  <main id="maincontent" role="main">
+    <!-- Beginning map -->
+    <section id="map-container">
+      <div id="map" role="application"></div>
+    </section>
+    <!-- End map -->
+    <!-- Beginning restaurant -->
+    <section id="restaurant-container">
+      <h1 id="restaurant-name"></h1>
+      <img id="restaurant-img">
+      <p id="restaurant-cuisine"></p>
+      <p id="restaurant-address"></p>
+      <table id="restaurant-hours"></table>
+    </section>
+    <!-- end restaurant -->
+    <!-- Beginning reviews -->
+    <section id="reviews-container">
+      <ul id="reviews-list"></ul>
+    </section>
+    <!-- End reviews -->
+  </main>
+  <!-- End main -->
+
+  <!-- Add Reviews Modal -->
+  <div id="add-review-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Add Review</h2>
+        <span class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <form id="review-form">
+        <label for="name">Your Name:</label></br>
+        <input id="review-author" name="name" type="text" />
+
+        <div class="rating-container">
+          <p>Rating:</p>
+          <div class="rating">
+              <input name="rating" id="review-rating5" type="radio" value="5"/>
+              <label for="rating5" title="5 stars">☆</label>
+
+              <input name="rating" id="review-rating4" type="radio" value="4"/>
+              <label for="rating4" title="4 stars">☆</label>
+
+              <input name="rating" id="review-rating3" type="radio" value="3"/>
+              <label for="rating3" title="3 stars">☆</label>
+
+              <input name="rating" id="review-rating2" type="radio" value="2"/>
+              <label for="rating2" title="2 stars">☆</label>
+
+              <input name="rating" id="review-rating1" type="radio" value="1"/>
+              <label for="rating1" title="1 stars">☆</label>
+          </div>
+        </div>
+        <label for="comments">Comments:</label></br>
+        <textarea id="review-comments" name="comments"></textarea></br>
+        <div id="form-error"></div>
+        <button class="submit-button" onclick="addReview()">Submit</button>
+      </form>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Beginning footer -->
+  <footer id="footer">
+    Copyright (c) 2018 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
+  </footer>
+  <!-- End footer -->
+
+  <!-- Beginning scripts -->
+  <script type="text/javascript"  src="js/idb.js"></script>
+  <!-- Database helpers -->
+  <script type="text/javascript" src="js/dbhelper.js"></script>
+  <!-- Main javascript file -->
+  <script type="text/javascript" src="js/restaurant_info.js"></script>
+  <!-- Google Maps -->
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzq67M8ujqDX5ZZiJ7evh4vVeOs7juP8s&libraries=places&callback=initMap"></script>
+  <!-- End scripts -->
+
+  <!-- Service Worker -->
+  <script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/sw.js').then(function(registration) {
+        // Registration was successful
+        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+      }, function(err) {
+        // registration failed :(
+        console.log('ServiceWorker registration failed: ', err);
+      });
+    });
+  }  
+  </script>
+</body>
+
+</html>
